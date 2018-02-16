@@ -15,7 +15,13 @@ clock = pygame.time.Clock()
 white = (255,255,255)
 black = (0,0,0)
 
-startButton = pygame.image.load('wavesbrd.png')
+titleArt = pygame.image.load('title.png')
+
+startButton = pygame.image.load('start.png')
+startBorder = pygame.image.load('startborder.png')
+
+quitButton = pygame.image.load('quit.png')
+quitBorder = pygame.image.load('quitborder.png')
 
 title_screen = True
 
@@ -25,9 +31,29 @@ while title_screen == True:
         if event.type == pygame.QUIT:
             pygame.quit()
             quit()
+    mouse = pygame.mouse.get_pos()
+    #print(mouse)
+    click = pygame.mouse.get_pressed()
+    #print(click)
 
     gameDisplay.fill(white)
-    gameDisplay.blit(startButton, (50, 25))
+
+    gameDisplay.blit(titleArt, (380, 50))
+    
+    gameDisplay.blit(startButton, (50, 550))
+    gameDisplay.blit(quitButton, (765, 550))
+    
+    if 50 + 185 > mouse[0] > 50 and 550 + 100 > mouse[1] > 550:
+        gameDisplay.blit(startBorder, (15, 530))
+        if click[0] == 1:
+            title_screen = False
+    if 765 + 185 > mouse[0] > 765 and 550 + 100 > mouse[1] > 550:
+        gameDisplay.blit(quitBorder, (755, 530))
+        if click[0] == 1:
+            pygame.quit()
+            quit()
 
     pygame.display.update()
     clock.tick(60)
+
+gameDisplay.fill(black)
