@@ -14,6 +14,10 @@ clock = pygame.time.Clock()
 white = (255,255,255)
 black = (0,0,0)
 
+titleBack = pygame.image.load('silverbackground.jpg')
+
+gameBack = pygame.image.load('darkmetalbackground.jpg')
+
 titleArt = pygame.image.load('title.png')
 
 startButton = pygame.image.load('start.png')
@@ -21,6 +25,14 @@ startBorder = pygame.image.load('startborder.png')
 
 quitButton = pygame.image.load('quit.png')
 quitBorder = pygame.image.load('quitborder.png')
+
+playeronepointer = pygame.image.load('player1point.png')
+playertwopointer = pygame.image.load('player2point.png')
+
+gamegrid = pygame.image.load('grid.png')
+
+def background(pic,x,y):
+    gameDisplay.blit(pic, (x,y))
 
 def title(x,y):
     gameDisplay.blit(titleArt, (x,y))
@@ -37,6 +49,15 @@ def startBrder(x,y):
 def quitBrder(x,y):
     gameDisplay.blit(quitBorder, (x,y))
 
+def pointer1(x,y):
+    gameDisplay.blit(playeronepointer, (x,y))
+    
+def pointer2(x,y):
+    gameDisplay.blit(playertwopointer, (x,y))
+
+def grid(x,y):
+    gameDisplay.blit(gamegrid, (x,y))
+
 def gameIntro():
     title_screen = True
     while title_screen == True:
@@ -51,8 +72,9 @@ def gameIntro():
         click = pygame.mouse.get_pressed()
         #print(click)
 
-        gameDisplay.fill(white)
-
+        gameDisplay.fill(black)
+        
+        background(titleBack,0,0)
         title(380,50)
         startImg(50,550)
         quitImg(765,550)
@@ -73,13 +95,62 @@ def gameIntro():
 
 def gameLoop():
     end = False
+    
+    oneX = 50
+    oneY = 50
+    twoX = 950
+    twoY = 50
+
+    oneX_change = 0
+    oneY_change = 0
+    twoX_change = 0
+    twoY_change = 0
+
     while not end:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
                 
-        gameDisplay.fill(black)
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_d:
+                    oneX_change += 5
+                elif event.key == pygame.K_a:
+                    oneX_change += -5
+                elif event.key == pygame.K_s:
+                    oneY_change += 5
+                elif event.key == pygame.K_w:
+                    oneY_change += -5
+                elif event.key == pygame.K_RIGHT:
+                    twoX_change += 5
+                elif event.key == pygame.K_LEFT:
+                    twoX_change += -5
+                elif event.key == pygame.K_DOWN:
+                    twoY_change += 5
+                elif event.key == pygame.K_UP:
+                    twoY_change += -5
+
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_d or event.key == pygame.K_a or\
+                   event.key == pygame.K_s or event.key == pygame.K_w or\
+                   event.key == pygame.K_RIGHT or event.key == pygame.K_LEFT or\
+                   event.key == pygame.K_DOWN or event.key == pygame.K_UP:
+                    oneX_change = 0
+                    oneY_change = 0
+                    twoX_change = 0
+                    twoY_change = 0
+                
+        background(gameBack,0,0)
+
+        oneX += oneX_change
+        oneY += oneY_change
+        twoX += twoX_change
+        twoY += twoY_change
+
+        grid(250,100)
+
+        pointer1(oneX,oneY)
+        pointer2(twoX,twoY)
 
         pygame.display.update()
         clock.tick(60)
