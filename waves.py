@@ -12,11 +12,12 @@ pygame.display.set_caption('Waves')
 clock = pygame.time.Clock()
 
 white = (255,255,255)
+grey = (128,128,128)
 black = (0,0,0)
 
 titleBack = pygame.image.load('silverbackground.jpg')
 
-gameBack = pygame.image.load('darkmetalbackground.jpg')
+gameBack = pygame.image.load('darkbackground.jpg')
 
 titleArt = pygame.image.load('title.png')
 
@@ -30,6 +31,9 @@ playeronepointer = pygame.image.load('player1point.png')
 playertwopointer = pygame.image.load('player2point.png')
 
 gamegrid = pygame.image.load('grid.png')
+
+redcastle = pygame.image.load('redcastle.png')
+bluecastle = pygame.image.load('bluecastle.png')
 
 def background(pic,x,y):
     gameDisplay.blit(pic, (x,y))
@@ -57,6 +61,12 @@ def pointer2(x,y):
 
 def grid(x,y):
     gameDisplay.blit(gamegrid, (x,y))
+
+def redCastle(x,y):
+    gameDisplay.blit(redcastle, (x,y))
+
+def blueCastle(x,y):
+    gameDisplay.blit(bluecastle, (x,y))
 
 def gameIntro():
     title_screen = True
@@ -141,6 +151,7 @@ def gameLoop():
                     twoY_change = 0
                 
         background(gameBack,0,0)
+        #gameDisplay.fill(white)
 
         oneX += oneX_change
         oneY += oneY_change
@@ -149,8 +160,16 @@ def gameLoop():
 
         grid(250,100)
 
+        redCastle(476,545)
+        blueCastle(476,105)
+
         pointer1(oneX,oneY)
         pointer2(twoX,twoY)
+
+        mouse = pygame.mouse.get_pos()
+        #print(mouse)
+        click = pygame.mouse.get_pressed()
+        #print(click)
 
         pygame.display.update()
         clock.tick(60)
