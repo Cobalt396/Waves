@@ -35,6 +35,9 @@ gamegrid = pygame.image.load('grid.png')
 redcastle = pygame.image.load('redcastle.png')
 bluecastle = pygame.image.load('bluecastle.png')
 
+redsummonpanel = pygame.image.load('redsummonpanel.png')
+bluesummonpanel = pygame.image.load('bluesummonpanel.png')
+
 def background(pic,x,y):
     gameDisplay.blit(pic, (x,y))
 
@@ -67,6 +70,12 @@ def redCastle(x,y):
 
 def blueCastle(x,y):
     gameDisplay.blit(bluecastle, (x,y))
+
+def redSummons(x,y):
+    gameDisplay.blit(redsummonpanel, (x,y))
+
+def blueSummons(x,y):
+    gameDisplay.blit(bluesummonpanel, (x,y))
 
 def gameIntro():
     title_screen = True
@@ -107,7 +116,7 @@ def gameLoop():
     end = False
     
     oneX = 50
-    oneY = 50
+    oneY = 650
     twoX = 950
     twoY = 50
 
@@ -162,6 +171,9 @@ def gameLoop():
 
         redCastle(476,545)
         blueCastle(476,105)
+
+        redSummons(7.5,152.5)
+        blueSummons(757.5,152.5)
 
         pointer1(oneX,oneY)
         pointer2(twoX,twoY)
